@@ -35,10 +35,10 @@ class ArticleCommentServiceTest {
 
         Long articleId = 1L;
         given(articleRepository.findById(articleId)).willReturn(Optional.of(
-                Article.of("title", "content", "hashtag")
+                Article.of(null, "title", "content", "hashtag")
         ));
 
-        List<ArticleCommentDto> articleComments =  articleCommentService.searchArticleComment(articleId);
+        List<ArticleCommentDto> articleComments = articleCommentService.searchArticleComment(articleId);
 
         assertThat(articleComments).isNotNull();
         then(articleRepository).should().findById(articleId);
@@ -50,10 +50,10 @@ class ArticleCommentServiceTest {
 
         Long articleId = 1L;
         given(articleRepository.findById(articleId)).willReturn(Optional.of(
-                Article.of("title", "content", "hashtag")
+                Article.of(null, "title", "content", "hashtag")
         ));
 
-        List<ArticleCommentDto> articleComments =  articleCommentService.searchArticleComment(articleId);
+        List<ArticleCommentDto> articleComments = articleCommentService.searchArticleComment(articleId);
 
         assertThat(articleComments).isNotNull();
         then(articleRepository).should().findById(articleId);
