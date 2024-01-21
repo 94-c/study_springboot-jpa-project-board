@@ -16,6 +16,7 @@ public record ArticleCommentDto(
         LocalDateTime modifiedAt,
         String modifiedBy
 ) {
+
     public static ArticleCommentDto of(Long articleId, UserAccountDto userAccountDto, String content) {
         return ArticleCommentDto.of(articleId, userAccountDto, content);
     }

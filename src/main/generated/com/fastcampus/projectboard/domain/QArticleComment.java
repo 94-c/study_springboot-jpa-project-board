@@ -42,6 +42,8 @@ public class QArticleComment extends EntityPathBase<ArticleComment> {
     //inherited
     public final StringPath modifiedBy = _super.modifiedBy;
 
+    public final NumberPath<Long> parentCommentId = createNumber("parentCommentId", Long.class);
+
     public final QUserAccount userAccount;
 
     public QArticleComment(String variable) {

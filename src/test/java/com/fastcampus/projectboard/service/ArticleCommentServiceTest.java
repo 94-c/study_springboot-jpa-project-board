@@ -117,7 +117,6 @@ class ArticleCommentServiceTest {
     }
 
 
-
     private ArticleCommentDto createArticleCommentDto(String content) {
         return ArticleCommentDto.of(
                 1L,

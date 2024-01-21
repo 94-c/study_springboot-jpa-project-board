@@ -32,20 +32,24 @@ public class ArticleComment extends AuditingFields {
     private UserAccount userAccount;
 
     @Setter
+    @Column(updatable = false)
+    private Long parentCommentId; // 부모 댓글 ID
+
+    @Setter
     @Column(nullable = false, length = 500)
     private String content;
 
-    protected ArticleComment() {
-    }
+    protected ArticleComment() {}
 
-    private ArticleComment(Article article, UserAccount userAccount, String content) {
+    private ArticleComment(Article article, UserAccount userAccount, Long parentCommentId, String content) {
         this.article = article;
         this.userAccount = userAccount;
+        this.parentCommentId = parentCommentId;
         this.content = content;
     }
 
     public static ArticleComment of(Article article, UserAccount userAccount, String content) {
-        return new ArticleComment(article, userAccount, content);
+        return new ArticleComment(article, userAccount, null, content);
     }
 
     @Override
