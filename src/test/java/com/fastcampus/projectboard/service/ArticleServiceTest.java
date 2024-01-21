@@ -4,6 +4,7 @@ import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.UserAccount;
 import com.fastcampus.projectboard.domain.type.SearchType;
 import com.fastcampus.projectboard.dto.ArticleDto;
+import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.projectboard.dto.UserAccountDto;
 import com.fastcampus.projectboard.repository.ArticleRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -51,12 +52,12 @@ class ArticleServiceTest {
         SearchType searchType = SearchType.TITLE;
         String searchKeyword = "Title";
         Pageable pageable = Pageable.ofSize(20);
-        given(articleRepository.findByTitle(searchKeyword, pageable)).willReturn(Page.empty());
+        given(articleRepository.findByTitleContaining(searchKeyword, pageable)).willReturn(Page.empty());
 
         Page<ArticleDto> articles = articleService.searchArticles(searchType, searchKeyword, pageable);
 
         assertThat(articles).isEmpty();
-        then(articleRepository).should().findByTitle(searchKeyword, pageable);
+        then(articleRepository).should().findByTitleContaining(searchKeyword, pageable);
     }
 
     @DisplayName("게시글을 조회하면, 게시글을 반환한다.")
@@ -66,7 +67,7 @@ class ArticleServiceTest {
         Article article = createArticle();
         given(articleRepository.findById(articleId)).willReturn(Optional.of(article));
 
-        ArticleWithCommentDto dto = articleService.getArticle(articleId);
+        ArticleWithCommentsDto dto = articleService.getArticle(articleId);
 
         assertThat(dto)
                 .hasFieldOrPropertyWithValue("title", article.getTitle())
