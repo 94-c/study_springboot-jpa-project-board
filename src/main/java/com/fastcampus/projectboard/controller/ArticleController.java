@@ -71,7 +71,7 @@ public class ArticleController {
         map.addAttribute("articles", articles);
         map.addAttribute("hashtags", hashtags);
         map.addAttribute("paginationBarNumbers", barNumbers);
-        map.addAttribute("searchType", SearchType.HAHSHTAG);
+        map.addAttribute("searchType", SearchType.HASHTAG);
 
         return "articles/search-hashtag";
     }
