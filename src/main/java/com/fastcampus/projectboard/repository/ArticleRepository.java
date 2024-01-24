@@ -21,24 +21,20 @@ public interface ArticleRepository extends
         QuerydslBinderCustomizer<QArticle> {
 
     Page<Article> findByTitleContaining(String title, Pageable pageable);
-
     Page<Article> findByContentContaining(String content, Pageable pageable);
-
     Page<Article> findByUserAccount_UserIdContaining(String userId, Pageable pageable);
-
     Page<Article> findByUserAccount_NicknameContaining(String nickname, Pageable pageable);
-
     Page<Article> findByHashtag(String hashtag, Pageable pageable);
 
     @Override
     default void customize(QuerydslBindings bindings, QArticle root) {
         bindings.excludeUnlistedProperties(true);
         bindings.including(root.title, root.content, root.hashtag, root.createdAt, root.createdBy);
-        // 검색어 쿼리문 자체가 틀림
-        bindings.bind(root.title).first(StringExpression::containsIgnoreCase);  // like '${v}'
-        bindings.bind(root.content).first(StringExpression::containsIgnoreCase); // like '%${v}%'
-        bindings.bind(root.hashtag).first(StringExpression::containsIgnoreCase); // like '%${v}%'
+        bindings.bind(root.title).first(StringExpression::containsIgnoreCase);
+        bindings.bind(root.content).first(StringExpression::containsIgnoreCase);
+        bindings.bind(root.hashtag).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
         bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
     }
+
 }
