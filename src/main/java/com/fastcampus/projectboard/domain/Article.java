@@ -19,21 +19,23 @@ import java.util.Set;
 })
 @Entity
 public class Article extends AuditingFields {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter @JoinColumn(name = "userId") @ManyToOne(optional = false) private UserAccount userAccount;
+    @Setter @ManyToOne(optional = false) @JoinColumn(name = "userId") private UserAccount userAccount; // 유저 정보 (ID)
 
-    @Setter @Column(nullable = false) private String title;
-    @Setter @Column(nullable = false, length = 10000) private String content;
+    @Setter @Column(nullable = false) private String title; // 제목
+    @Setter @Column(nullable = false, length = 10000) private String content; // 본문
 
-    @Setter private String hashtag;
+    @Setter private String hashtag; // 해시태그
 
     @ToString.Exclude
     @OrderBy("createdAt DESC")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
+
 
     protected Article() {}
 
@@ -48,13 +50,13 @@ public class Article extends AuditingFields {
         return new Article(userAccount, title, content, hashtag);
     }
 
-    //skeleton 코드
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Article article)) return false;
         return id != null && id.equals(article.id);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
