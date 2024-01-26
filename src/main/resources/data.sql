@@ -1,7 +1,7 @@
 -- 유저계정(user_account)
-insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,modified_by) values ('boom', '{noop}asdf1234', 'boom', 'boom@mail.com', 'I am boom.', now(), 'boom', now(), 'boom');
-insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,modified_by) values ('boom2', '{noop}asdf1234', 'boom2', 'boom2@mail.com', 'I am boom2.', now(), 'boom2', now(), 'boom2');
-insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,modified_by) values ('boom3', '{noop}asdf1234', 'boom3', 'boom3@mail.com', 'I am boom3.', now(), 'boom3', now(), 'boom3');
+#insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,modified_by) values ('boom', '{noop}asdf1234', 'boom', 'boom@mail.com', 'I am boom.', now(), 'boom', now(), 'boom');
+#insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,modified_by) values ('boom2', '{noop}asdf1234', 'boom2', 'boom2@mail.com', 'I am boom2.', now(), 'boom2', now(), 'boom2');
+#insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,modified_by) values ('boom3', '{noop}asdf1234', 'boom3', 'boom3@mail.com', 'I am boom3.', now(), 'boom3', now(), 'boom3');
 
 -- 게시글(article)
 insert into article (user_id, title, content, hashtag, created_by, modified_by, created_at, modified_at) values (3, 'Sed ante.', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 'Khaki', 'Giffy', 'Fabian', '2022-11-06 08:06:29', '2022-10-25 19:39:35');
