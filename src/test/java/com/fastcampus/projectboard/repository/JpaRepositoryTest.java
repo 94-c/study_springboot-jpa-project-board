@@ -1,20 +1,24 @@
 package com.fastcampus.projectboard.repository;
 
-import com.fastcampus.projectboard.config.JpaConfig;
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.UserAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("JPA 연결 테스트")
-@Import(JpaConfig.class)
+@Import(JpaRepositoryTest.TestJpaConfig.class)
 @DataJpaTest
 class JpaRepositoryTest {
 
@@ -32,27 +36,27 @@ class JpaRepositoryTest {
         this.userAccountRepository = userAccountRepository;
     }
 
-    @DisplayName("SELECT 테스트")
+    @DisplayName("select 테스트")
     @Test
     void givenTestData_whenSelecting_thenWorksFine() {
-        // GIVEN
+        // Given
 
-        // WHEN
+        // When
         List<Article> articles = articleRepository.findAll();
 
-        // THEN
+        // Then
         assertThat(articles)
                 .isNotNull()
-                .hasSize(0);
+                .hasSize(123);
     }
 
-    @DisplayName("INSERT 테스트")
+    @DisplayName("insert 테스트")
     @Test
     void givenTestData_whenInserting_thenWorksFine() {
         // Given
         long previousCount = articleRepository.count();
-        UserAccount userAccount = userAccountRepository.save(UserAccount.of("boom", "pw", null, null, null));
-        Article article = Article.of(userAccount, "new Article", "new Content", "$hashTag");
+        UserAccount userAccount = userAccountRepository.save(UserAccount.of("newBoom", "pw", null, null, null));
+        Article article = Article.of(userAccount, "new article", "new content", "#spring");
 
         // When
         articleRepository.save(article);
@@ -61,7 +65,7 @@ class JpaRepositoryTest {
         assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
     }
 
-    @DisplayName("UPDATE 테스트")
+    @DisplayName("update 테스트")
     @Test
     void givenTestData_whenUpdating_thenWorksFine() {
         // Given
@@ -76,7 +80,7 @@ class JpaRepositoryTest {
         assertThat(savedArticle).hasFieldOrPropertyWithValue("hashtag", updatedHashtag);
     }
 
-    @DisplayName("DELETE 테스트")
+    @DisplayName("delete 테스트")
     @Test
     void givenTestData_whenDeleting_thenWorksFine() {
         // Given
@@ -91,6 +95,15 @@ class JpaRepositoryTest {
         // Then
         assertThat(articleRepository.count()).isEqualTo(previousArticleCount - 1);
         assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentsSize);
-
     }
+
+    @EnableJpaAuditing
+    @TestConfiguration
+    public static class TestJpaConfig {
+        @Bean
+        public AuditorAware<String> auditorAware() {
+            return () -> Optional.of("Boom");
+        }
+    }
+
 }

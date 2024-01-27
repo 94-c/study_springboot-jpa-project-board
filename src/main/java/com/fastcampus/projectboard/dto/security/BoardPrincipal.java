@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public record BoardPrincipal(
+        Long id,
         String username,
         String password,
         Collection<? extends GrantedAuthority> authorities,
@@ -19,10 +20,11 @@ public record BoardPrincipal(
         String memo
 ) implements UserDetails {
 
-    public static BoardPrincipal of(String username, String password, String email, String nickname, String memo) {
+    public static BoardPrincipal of(Long id, String username, String password, String email, String nickname, String memo) {
         Set<RoleType> roleTypes = Set.of(RoleType.USER);
 
         return new BoardPrincipal(
+                id,
                 username,
                 password,
                 roleTypes.stream()
@@ -37,11 +39,23 @@ public record BoardPrincipal(
 
     public static BoardPrincipal from(UserAccountDto dto) {
         return BoardPrincipal.of(
+                dto.id(),
                 dto.userId(),
                 dto.userPassword(),
                 dto.email(),
                 dto.nickname(),
                 dto.memo()
+        );
+    }
+
+    public UserAccountDto toDto() {
+        return UserAccountDto.of(
+                id,
+                username,
+                password,
+                email,
+                nickname,
+                memo
         );
     }
 
