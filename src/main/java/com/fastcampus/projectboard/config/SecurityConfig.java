@@ -42,12 +42,19 @@ public class  SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(UserAccountRepository userAccountRepository) {
-        return username -> userAccountRepository
-                .findById(username)
-                .map(UserAccountDto::from)
-                .map(BoardPrincipal::from)
-                .orElseThrow(() -> new UsernameNotFoundException("유저를 찾을 수 없습니다. - username :: " + username));
+        return username -> {
+            try {
+                return userAccountRepository
+                        .findByEmail(username)
+                        .map(UserAccountDto::from)
+                        .map(BoardPrincipal::from)
+                        .orElseThrow(() -> new UsernameNotFoundException("유저를 찾을 수 없습니다. - username :: " + username));
+            } catch (NumberFormatException e) {
+                throw new UsernameNotFoundException("유저를 찾을 수 없습니다. - 잘못된 형식의 userId :: " + username);
+            }
+        };
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
