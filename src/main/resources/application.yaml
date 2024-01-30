@@ -13,10 +13,12 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:mysql://43.201.51.9:3306/board
+   #url: jdbc:mysql://43.201.51.9:3306/board
+    url: jdbc:postgresql://localhost:5432/board
     username: boom
     password: boom
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
+  #driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     open-in-view: false
     defer-datasource-initialization: true
