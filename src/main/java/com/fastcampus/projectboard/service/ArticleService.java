@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -68,28 +69,11 @@ public class ArticleService {
 
     public void saveArticle(ArticleDto dto) {
         UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().id());
-        Set<Hashtag> hashtags = renewHashTagsFromContent(dto.content());
+        Set<Hashtag> hashtags = renewHashtagsFromContent(dto.content());
 
         Article article = dto.toEntity(userAccount);
         article.addHashtags(hashtags);
-
         articleRepository.save(article);
-    }
-
-    private Set<Hashtag> renewHashTagsFromContent(String content) {
-        Set<String> hashtagNameInContent = hashtagService.parseHashtagNames(content);
-        Set<Hashtag> hashtags = hashtagService.findHashtagsByNames(hashtagNameInContent);
-        Set<String> existingHashtagNames = hashtags.stream()
-                .map(Hashtag::getHashtagName)
-                .collect(Collectors.toUnmodifiableSet());
-
-        hashtagNameInContent.forEach(newHashtagName -> {
-            if (!existingHashtagNames.contains(newHashtagName)) {
-                hashtags.add(Hashtag.of(newHashtagName));
-            }
-        });
-
-        return hashtags;
     }
 
     public void updateArticle(Long articleId, ArticleDto dto) {
@@ -100,22 +84,18 @@ public class ArticleService {
             if (article.getUserAccount().equals(userAccount)) {
                 if (dto.title() != null) { article.setTitle(dto.title()); }
                 if (dto.content() != null) { article.setContent(dto.content()); }
+
+                Set<Long> hashtagIds = article.getHashtags().stream()
+                        .map(Hashtag::getId)
+                        .collect(Collectors.toUnmodifiableSet());
+                article.clearHashtags();
+                articleRepository.flush();
+
+                hashtagIds.forEach(hashtagService::deleteHashtagWithoutArticles);
+
+                Set<Hashtag> hashtags = renewHashtagsFromContent(dto.content());
+                article.addHashtags(hashtags);
             }
-
-            Set<Long> hashtagIds = article.getHashtags().stream()
-                    .map(Hashtag::getId)
-                    .collect(Collectors.toUnmodifiableSet());
-
-            article.clearHashtags();
-            articleRepository.flush();
-
-            hashtagIds.forEach(
-                    hashtagService::deleteHashtagWithoutArticles
-            );
-
-            Set<Hashtag> hashtags = renewHashTagsFromContent(dto.content());
-            article.addHashtags(hashtags);
-
         } catch (EntityNotFoundException e) {
             log.warn("게시글 업데이트 실패. 게시글을 수정하는데 필요한 정보를 찾을 수 없습니다 - {}", e.getLocalizedMessage());
         }
@@ -123,7 +103,6 @@ public class ArticleService {
 
     public void deleteArticle(long articleId, String userId) {
         Article article = articleRepository.getReferenceById(articleId);
-
         Set<Long> hashtagIds = article.getHashtags().stream()
                 .map(Hashtag::getId)
                 .collect(Collectors.toUnmodifiableSet());
@@ -131,9 +110,7 @@ public class ArticleService {
         articleRepository.deleteByIdAndUserAccount_UserId(articleId, userId);
         articleRepository.flush();
 
-        hashtagIds.forEach(
-                hashtagService::deleteHashtagWithoutArticles
-        );
+        hashtagIds.forEach(hashtagService::deleteHashtagWithoutArticles);
     }
 
     public long getArticleCount() {
@@ -151,7 +128,24 @@ public class ArticleService {
     }
 
     public List<String> getHashtags() {
-        return hashtagRepository.findAllHashtagNames();
+        return hashtagRepository.findAllHashtagNames(); // TODO: HashtagService 로 이동을 고려해보자.
+    }
+
+
+    private Set<Hashtag> renewHashtagsFromContent(String content) {
+        Set<String> hashtagNamesInContent = hashtagService.parseHashtagNames(content);
+        Set<Hashtag> hashtags = hashtagService.findHashtagsByNames(hashtagNamesInContent);
+        Set<String> existingHashtagNames = hashtags.stream()
+                .map(Hashtag::getHashtagName)
+                .collect(Collectors.toUnmodifiableSet());
+
+        hashtagNamesInContent.forEach(newHashtagName -> {
+            if (!existingHashtagNames.contains(newHashtagName)) {
+                hashtags.add(Hashtag.of(newHashtagName));
+            }
+        });
+
+        return hashtags;
     }
 
 }
