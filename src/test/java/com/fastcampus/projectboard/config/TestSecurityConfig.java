@@ -18,11 +18,11 @@ public class TestSecurityConfig {
 
     @BeforeTestMethod
     public void securitySetUp() {
-        given(userAccountRepository.findById(Long.valueOf(anyString()))).willReturn(Optional.of(UserAccount.of(
-                "unoTest",
+        given(userAccountRepository.findByEmail(anyString())).willReturn(Optional.of(UserAccount.of(
+                "boomTest",
                 "pw",
-                "uno-test@email.com",
-                "uno-test",
+                "boom-test@email.com",
+                "boom-test",
                 "test memo"
         )));
     }
