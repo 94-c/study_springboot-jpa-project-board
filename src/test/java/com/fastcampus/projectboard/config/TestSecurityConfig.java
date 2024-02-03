@@ -18,8 +18,7 @@ public class TestSecurityConfig {
 
     @BeforeTestMethod
     public void securitySetUp() {
-        given(userAccountService.searchUser(anyString()))
-                .willReturn(Optional.of(createUserAccountDto()));
+        given(userAccountService.searchUser(anyString())).willReturn(Optional.of(createUserAccountDto()));
         given(userAccountService.saveUser(anyString(), anyString(), anyString(), anyString(), anyString()))
                 .willReturn(createUserAccountDto());
     }
