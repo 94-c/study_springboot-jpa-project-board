@@ -2,7 +2,7 @@ package com.fastcampus.projectboard.repository.querydsl;
 
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.QArticle;
-import com.fastcampus.projectboard.user.domain.QHashtag;
+import com.fastcampus.projectboard.domain.QHashtag;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
