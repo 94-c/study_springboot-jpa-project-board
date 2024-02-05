@@ -13,10 +13,12 @@ logging:
 
 spring:
   datasource:
-    url: ${LOCAL_DB_URL}
-    username: ${LOCAL_DB_ID}
-    password: ${LOCAL_DB_PASSWORD}
+    #url: jdbc:mysql://43.201.51.9:3306/board
+    url: jdbc:postgresql://43.201.51.9:5432/board
+    username: boom
+    password: boom
     driver-class-name: org.postgresql.Driver
+  #driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     open-in-view: false
     defer-datasource-initialization: true
@@ -36,8 +38,8 @@ spring:
       client:
         registration:
           kakao:
-            client-id: ${KAKAO_OAUTH_CLIENT_ID}
-            client-secret: ${KAKAO_OAUTH_CLIENT_SECRET}
+            client-id: id
+            client-secret: key
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/kakao"
             client-authentication-method: POST
