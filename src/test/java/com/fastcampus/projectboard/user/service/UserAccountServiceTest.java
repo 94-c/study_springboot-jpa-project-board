@@ -1,9 +1,9 @@
 package com.fastcampus.projectboard.user.service;
 
-import com.fastcampus.projectboard.user.domain.UserAccount;
-import com.fastcampus.projectboard.user.dto.UserAccountDto;
-import com.fastcampus.projectboard.user.repository.UserAccountRepository;
-import com.fastcampus.projectboard.user.service.UserAccountService;
+import com.fastcampus.projectboard.domain.UserAccount;
+import com.fastcampus.projectboard.dto.UserAccountDto;
+import com.fastcampus.projectboard.repository.UserAccountRepository;
+import com.fastcampus.projectboard.service.UserAccountService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

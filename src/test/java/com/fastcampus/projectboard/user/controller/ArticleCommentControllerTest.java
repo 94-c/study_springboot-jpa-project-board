@@ -1,10 +1,11 @@
 package com.fastcampus.projectboard.user.controller;
 
+import com.fastcampus.projectboard.controller.ArticleCommentController;
 import com.fastcampus.projectboard.user.config.TestSecurityConfig;
-import com.fastcampus.projectboard.user.dto.ArticleCommentDto;
-import com.fastcampus.projectboard.user.dto.request.ArticleCommentRequest;
-import com.fastcampus.projectboard.user.service.ArticleCommentService;
-import com.fastcampus.projectboard.global.util.FormDataEncoder;
+import com.fastcampus.projectboard.dto.ArticleCommentDto;
+import com.fastcampus.projectboard.dto.request.ArticleCommentRequest;
+import com.fastcampus.projectboard.service.ArticleCommentService;
+import com.fastcampus.projectboard.util.FormDataEncoder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
