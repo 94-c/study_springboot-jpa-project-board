@@ -36,7 +36,7 @@ public record BoardPrincipal(
                 username,
                 password,
                 roleTypes.stream()
-                        .map(RoleType::getName)
+                        .map(RoleType::getRoleName)
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toUnmodifiableSet()),
                 email,

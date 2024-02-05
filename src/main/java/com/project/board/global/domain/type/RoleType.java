@@ -1,16 +1,17 @@
 package com.project.board.global.domain.type;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Getter
+@RequiredArgsConstructor
 public enum RoleType {
 
-    USER("ROLE_USER");
+    USER("ROLE_USER"),
+    MANAGER("ROLE_MANAGER"),
+    DEVELOPER("ROLE_DEVELOPER"),
+    ADMIN("ROLE_ADMIN")
+    ;
 
-    private final String name;
-
-    RoleType(String name) {
-        this.name = name;
-    }
+    @Getter private final String roleName;
 
 }
