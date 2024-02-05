@@ -24,7 +24,7 @@ public record BoardPrincipal(
 
 ) implements UserDetails, OAuth2User {
     public static BoardPrincipal of(Long id, String username, String password, String email, String nickname, String memo) {
-        return of(id, username, password, email, nickname, memo, null);
+        return BoardPrincipal.of(id, username, password, email, nickname, memo, null);
     }
 
     public static BoardPrincipal of(Long id, String username, String password, String email, String nickname, String memo, Map<String, Object> oAuth2Attributes) {
