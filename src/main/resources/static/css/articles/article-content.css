@@ -6,3 +6,17 @@
     white-space: -o-pre-wrap; /* Opera 7 */
     word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
+
+#article-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#delete-article-form {
+    text-align: center;
+}
+
+#delete-article-form .d-flex {
+    flex-direction: column; /* 작은 화면일 때 세로로 정렬되도록 합니다. */
+}
