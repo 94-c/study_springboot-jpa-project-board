@@ -2,6 +2,7 @@ package com.fastcampus.projectboard.domain;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.fastcampus.projectboard.user.domain.ArticleComment;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
