@@ -8,10 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @ToString(callSuper = true)
@@ -23,27 +20,35 @@ import java.util.Set;
 @Entity
 public class UserAccount extends AuditingFields {
     @Id
-    @Column(length = 50)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "user_id")
     private String userId;
 
-    @Setter @Column(nullable = false) private String userPassword;
-
-    @Convert(converter = RoleTypesConverter.class)
+    @Setter
     @Column(nullable = false)
-    private Set<RoleType> roleTypes = new LinkedHashSet<>();
+    private String userPassword;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<Role> roleTypes = new LinkedHashSet<>();
 
-    @Setter @Column(length = 100) private String email;
-    @Setter @Column(length = 100) private String nickname;
-    @Setter private String memo;
-
+    @Setter
+    @Column(length = 100)
+    private String email;
+    @Setter
+    @Column(length = 100)
+    private String nickname;
+    @Setter
+    private String memo;
 
     protected UserAccount() {}
 
-    private UserAccount(String userId, String userPassword, Set<RoleType> roleTypes, String email, String nickname, String memo, String createdBy) {
+    public UserAccount(String userId, String userPassword, Set<Role> roleTypes, String email, String nickname, String memo, String createdBy) {
         this.userId = userId;
         this.userPassword = userPassword;
         this.roleTypes = roleTypes;
@@ -51,27 +56,18 @@ public class UserAccount extends AuditingFields {
         this.nickname = nickname;
         this.memo = memo;
         this.createdBy = createdBy;
-        this.modifiedBy = createdBy;
     }
 
-    public static UserAccount of(String userId, String userPassword, Set<RoleType> roleTypes, String email, String nickname, String memo) {
+    public static UserAccount of(String userId, String userPassword, Set<Role> roleTypes, String email, String nickname, String memo) {
         return UserAccount.of(userId, userPassword, roleTypes, email, nickname, memo, null);
     }
 
-    public static UserAccount of(String userId, String userPassword, Set<RoleType> roleTypes, String email, String nickname, String memo, String createdBy) {
-        return new UserAccount(userId, userPassword, roleTypes, email, nickname, memo, createdBy);
+    public static UserAccount of(String userId, String userPassword, Set<Role> roleTypes, String email, String nickname, String memo, String createBy) {
+        return new UserAccount(userId, userPassword, roleTypes, email, nickname, memo, createBy);
     }
 
-    public void addRoleType(RoleType roleType) {
-        this.getRoleTypes().add(roleType);
-    }
-
-    public void addRoleTypes(Collection<RoleType> roleTypes) {
-        this.getRoleTypes().addAll(roleTypes);
-    }
-
-    public void removeRoleType(RoleType roleType) {
-        this.getRoleTypes().remove(roleType);
+    public List<Role> getRoles() {
+        return roleTypes == null ? null : new ArrayList<>(roleTypes);
     }
 
     @Override

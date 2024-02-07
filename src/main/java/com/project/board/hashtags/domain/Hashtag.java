@@ -27,7 +27,7 @@ public class Hashtag extends AuditingFields {
 
     @ToString.Exclude
     @ManyToMany(mappedBy = "hashtags")
-    private Set<Article> articles = new LinkedHashSet<>();
+    private final Set<Article> articles = new LinkedHashSet<>();
 
     @Setter @Column(nullable = false) private String hashtagName; // 해시태그 이름
 
