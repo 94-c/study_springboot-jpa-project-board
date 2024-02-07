@@ -1,13 +1,25 @@
 -- 테스트 계정
--- TODO: 테스트용이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을 지 고민해 보자.
-insert into user_account (user_id, user_password, role_types, nickname, email, memo, created_at, created_by,
-                          modified_at, modified_by)
-values ('boom', '{noop}asdf1234', 'ADMIN', 'boom', 'boom@mail.com', 'I am boom.', now(), 'boom', now(), 'boom'),
-       ('mark', '{noop}asdf1234', 'MANAGER', 'Mark', 'mark@mail.com', 'I am Mark.', now(), 'boom', now(), 'boom'),
-       ('susan', '{noop}asdf1234', 'MANAGER,DEVELOPER', 'Susan', 'Susan@mail.com', 'I am Susan.', now(), 'boom', now(),
-        'boom'),
-       ('jim', '{noop}asdf1234', 'USER', 'Jim', 'jim@mail.com', 'I am Jim.', now(), 'boom', now(), 'boom')
-;
+INSERT INTO user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,
+                          modified_by)
+VALUES ('boom', '{noop}asdf1234', 'boom', 'boom@mail.com', 'I am boom.', NOW(), 'boom', NOW(), 'boom');
+
+INSERT INTO user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,
+                          modified_by)
+VALUES ('boom2', '{noop}asdf1234', 'boom2', 'boom2@mail.com', 'I am boom2.', NOW(), 'boom2', NOW(), 'boom2');
+
+INSERT INTO user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,
+                          modified_by)
+VALUES ('boom3', '{noop}asdf1234', 'boom3', 'boom3@mail.com', 'I am boom3.', NOW(), 'boom3', NOW(), 'boom3');
+
+INSERT INTO role (type)
+VALUES ('USER'),
+       ('MANAGER'),
+       ('DEVELOPER'),
+       ('ADMIN');
+
+-- 사용자와 역할 정보 연결
+INSERT INTO user_role (user_id, role_id)
+VALUES (1, 1);
 
 -- 123 게시글
 insert into article (user_id, title, content, created_by, modified_by, created_at, modified_at)
