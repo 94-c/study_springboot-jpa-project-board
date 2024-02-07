@@ -1,6 +1,7 @@
 package com.project.board.global.dto.security;
 
 import com.project.board.global.domain.type.RoleType;
+import com.project.board.users.domain.Role;
 import com.project.board.users.dto.UserAccountDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,29 +18,23 @@ public record BoardPrincipal(
         Long id,
         String username,
         String password,
-        Collection<? extends GrantedAuthority> authorities,
+        Set<Role> authorities,
         String email,
         String nickname,
         String memo,
         Map<String, Object> oAuth2Attributes
-
 ) implements UserDetails, OAuth2User {
-    public static BoardPrincipal of(Long id, String username, String password, String email, String nickname, String memo) {
-        return BoardPrincipal.of(id, username, password, email, nickname, memo, null);
+
+    public static BoardPrincipal of(Long id, String username, String password, Set<Role> authorities, String email, String nickname, String memo) {
+        return BoardPrincipal.of(id, username, password, authorities, email, nickname, memo, null);
     }
 
-    public static BoardPrincipal of(Long id, String username, String password, String email, String nickname, String memo, Map<String, Object> oAuth2Attributes) {
-        // 지금은 인증만 하고 권한을 다루고 있지 않아서 임의로 세팅한다.
-        Set<RoleType> roleTypes = Set.of(RoleType.USER);
-
+    public static BoardPrincipal of(Long id, String username, String password, Set<Role> authorities, String email, String nickname, String memo, Map<String, Object> oAuth2Attributes) {
         return new BoardPrincipal(
                 id,
                 username,
                 password,
-                roleTypes.stream()
-                        .map(RoleType::getRoleName)
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toUnmodifiableSet()),
+                authorities,
                 email,
                 nickname,
                 memo,
@@ -51,6 +47,7 @@ public record BoardPrincipal(
                 dto.id(),
                 dto.userId(),
                 dto.userPassword(),
+                dto.roleTypes(),
                 dto.email(),
                 dto.nickname(),
                 dto.memo()
@@ -62,15 +59,17 @@ public record BoardPrincipal(
                 id,
                 username,
                 password,
+                authorities,
                 email,
                 nickname,
                 memo
         );
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities.stream().map(role -> new SimpleGrantedAuthority(role.getType().getRoleName())).collect(Collectors.toList());
     }
 
     @Override
@@ -105,12 +104,11 @@ public record BoardPrincipal(
 
     @Override
     public Map<String, Object> getAttributes() {
-        return null;
+        return oAuth2Attributes;
     }
 
     @Override
     public String getName() {
         return username;
     }
-
 }

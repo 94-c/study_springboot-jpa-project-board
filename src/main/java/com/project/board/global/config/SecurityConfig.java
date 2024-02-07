@@ -1,5 +1,7 @@
 package com.project.board.global.config;
 
+import com.project.board.global.domain.type.RoleType;
+import com.project.board.users.domain.Role;
 import com.project.board.users.dto.UserAccountDto;
 import com.project.board.global.dto.security.BoardPrincipal;
 import com.project.board.global.dto.security.KakaoOAuth2Response;
@@ -21,6 +23,8 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.Collections;
+import java.util.Set;
 import java.util.UUID;
 
 @Configuration
@@ -40,6 +44,9 @@ public class SecurityConfig {
                                 "/articles",
                                 "/articles/search-hashtag"
                         ).permitAll()
+                        .mvcMatchers(
+                                "/admin/**"
+                        ).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
@@ -93,6 +100,7 @@ public class SecurityConfig {
             String providerId = String.valueOf(kakaoResponse.id());
             String username = registrationId + "_" + providerId;
             String dummyPassword = passwordEncoder.encode("{bcrypt}" + UUID.randomUUID());
+            Set<Role> roleTypes = Set.of(new Role(RoleType.USER));
 
             return userAccountService.searchUser(username)
                     .map(BoardPrincipal::from)
@@ -101,6 +109,7 @@ public class SecurityConfig {
                                     userAccountService.saveUser(
                                             username,
                                             dummyPassword,
+                                            roleTypes,
                                             kakaoResponse.email(),
                                             kakaoResponse.nickname(),
                                             null
@@ -109,6 +118,7 @@ public class SecurityConfig {
                     );
         };
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
