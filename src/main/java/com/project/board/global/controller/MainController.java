@@ -11,4 +11,9 @@ public class MainController {
         return "redirect:/articles";
     }
 
+    @GetMapping("/login-form")
+    public String loginForm() {
+        return "/login-form";
+    }
+
 }
