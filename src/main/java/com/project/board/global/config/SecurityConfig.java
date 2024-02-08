@@ -49,7 +49,12 @@ public class SecurityConfig {
                         ).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
+                .formLogin(form -> form
+                        .loginPage("/login-form") // 사용자 정의 로그인 페이지 경로 지정
+                        .permitAll()
+                        //.defaultSuccessUrl("/dashboard", true) // 로그인 성공 후 이동할 경로
+                        //.failureUrl("/login?error=true") // 로그인 실패 시 이동할 경로
+                )
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .oauth2Login(oAuth -> oAuth
                         .userInfoEndpoint(userInfo -> userInfo
