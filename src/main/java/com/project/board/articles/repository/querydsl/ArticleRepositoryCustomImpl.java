@@ -1,8 +1,8 @@
 package com.project.board.articles.repository.querydsl;
 
 import com.project.board.articles.domain.Article;
-import com.project.board.domain.QArticle;
-import com.project.board.domain.QHashtag;
+import com.project.board.articles.domain.QArticle;
+import com.project.board.hashtags.domain.QHashtag;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

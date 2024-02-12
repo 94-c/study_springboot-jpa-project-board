@@ -1,7 +1,7 @@
 package com.project.board.comments.repository;
 
 import com.project.board.comments.domain.ArticleComment;
-import com.project.board.domain.QArticleComment;
+import com.project.board.comments.domain.QArticleComment;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import org.springframework.data.jpa.repository.JpaRepository;

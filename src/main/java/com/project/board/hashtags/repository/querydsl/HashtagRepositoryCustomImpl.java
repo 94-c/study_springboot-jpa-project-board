@@ -1,7 +1,7 @@
 package com.project.board.hashtags.repository.querydsl;
 
 import com.project.board.hashtags.domain.Hashtag;
-import com.project.board.domain.QHashtag;
+import com.project.board.hashtags.domain.QHashtag;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.project.board.articles.repository;
 
 import com.project.board.articles.domain.Article;
-import com.project.board.domain.QArticle;
+import com.project.board.articles.domain.QArticle;
 import com.project.board.articles.repository.querydsl.ArticleRepositoryCustom;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
