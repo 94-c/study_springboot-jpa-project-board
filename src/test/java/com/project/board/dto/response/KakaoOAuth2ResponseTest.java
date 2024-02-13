@@ -1,6 +1,6 @@
 package com.fastcampus.projectboard.user.dto.response;
 
-import com.fastcampus.projectboard.dto.response.KakaoOAuth2Response;
+import com.project.board.dto.response.KakaoOAuth2Response;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;

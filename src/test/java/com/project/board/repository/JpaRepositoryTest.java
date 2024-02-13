@@ -1,13 +1,13 @@
 package com.fastcampus.projectboard.user.repository;
 
-import com.fastcampus.projectboard.domain.Article;
-import com.fastcampus.projectboard.domain.ArticleComment;
-import com.fastcampus.projectboard.domain.Hashtag;
-import com.fastcampus.projectboard.domain.UserAccount;
-import com.fastcampus.projectboard.repository.ArticleCommentRepository;
-import com.fastcampus.projectboard.repository.ArticleRepository;
-import com.fastcampus.projectboard.repository.HashtagRepository;
-import com.fastcampus.projectboard.repository.UserAccountRepository;
+import com.project.board.domain.Article;
+import com.project.board.domain.ArticleComment;
+import com.project.board.domain.Hashtag;
+import com.project.board.domain.UserAccount;
+import com.project.board.repository.ArticleCommentRepository;
+import com.project.board.repository.ArticleRepository;
+import com.project.board.repository.HashtagRepository;
+import com.project.board.repository.UserAccountRepository;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

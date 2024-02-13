@@ -1,6 +1,6 @@
 package com.fastcampus.projectboard.user.controller;
 
-import com.fastcampus.projectboard.controller.MainController;
+import com.project.board.controller.MainController;
 import com.fastcampus.projectboard.user.config.TestSecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

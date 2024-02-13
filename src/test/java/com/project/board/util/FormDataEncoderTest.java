@@ -1,6 +1,6 @@
 package com.fastcampus.projectboard.user.util;
 
-import com.fastcampus.projectboard.util.FormDataEncoder;
+import com.project.board.util.FormDataEncoder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

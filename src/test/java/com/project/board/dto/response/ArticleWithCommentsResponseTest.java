@@ -1,11 +1,11 @@
 package com.fastcampus.projectboard.user.dto.response;
 
-import com.fastcampus.projectboard.dto.ArticleCommentDto;
-import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
-import com.fastcampus.projectboard.dto.HashtagDto;
-import com.fastcampus.projectboard.dto.UserAccountDto;
-import com.fastcampus.projectboard.dto.response.ArticleCommentResponse;
-import com.fastcampus.projectboard.dto.response.ArticleWithCommentsResponse;
+import com.project.board.dto.ArticleCommentDto;
+import com.project.board.dto.ArticleWithCommentsDto;
+import com.project.board.dto.HashtagDto;
+import com.project.board.dto.UserAccountDto;
+import com.project.board.dto.response.ArticleCommentResponse;
+import com.project.board.dto.response.ArticleWithCommentsResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
