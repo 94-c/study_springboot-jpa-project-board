@@ -1,6 +1,5 @@
 package com.project.board.users.service;
 
-import com.project.board.global.domain.type.RoleType;
 import com.project.board.users.domain.Role;
 import com.project.board.users.domain.UserAccount;
 import com.project.board.users.dto.UserAccountDto;

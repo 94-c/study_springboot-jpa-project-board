@@ -1,8 +1,6 @@
 package com.project.board.users.domain;
 
 import com.project.board.global.domain.AuditingFields;
-import com.project.board.global.domain.RoleTypesConverter;
-import com.project.board.global.domain.type.RoleType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
