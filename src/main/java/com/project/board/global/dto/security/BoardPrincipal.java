@@ -1,6 +1,5 @@
 package com.project.board.global.dto.security;
 
-import com.project.board.global.domain.type.RoleType;
 import com.project.board.users.domain.Role;
 import com.project.board.users.dto.UserAccountDto;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
