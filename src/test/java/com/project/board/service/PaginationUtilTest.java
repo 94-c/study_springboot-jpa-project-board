@@ -1,6 +1,6 @@
-package com.project.board.service;
+package com.fastcampus.projectboard.user.service;
 
-import com.project.board.global.util.PaginationUtil;
+import com.fastcampus.projectboard.util.PaginationUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

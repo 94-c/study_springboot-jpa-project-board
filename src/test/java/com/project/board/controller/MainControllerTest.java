@@ -1,7 +1,7 @@
-package com.project.board.controller;
+package com.fastcampus.projectboard.user.controller;
 
-import com.project.board.global.controller.MainController;
-import com.project.board.config.TestSecurityConfig;
+import com.fastcampus.projectboard.controller.MainController;
+import com.fastcampus.projectboard.user.config.TestSecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
