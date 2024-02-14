@@ -8,6 +8,7 @@ import java.util.Optional;
 @Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
     UserAccount getReferenceById(Long id);
-
     Optional<UserAccount> findByEmail(String email);
+    void deleteByEmail(String email);
+
 }

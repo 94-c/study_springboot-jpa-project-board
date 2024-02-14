@@ -3,7 +3,7 @@ package com.fastcampus.projectboard.user.service;
 import com.project.board.domain.UserAccount;
 import com.project.board.dto.UserAccountDto;
 import com.project.board.repository.UserAccountRepository;
-import com.project.board.service.UserAccountService;
+import com.project.board.service.users.UserAccountService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -3,7 +3,6 @@ package com.project.board.domain.type;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public enum RoleType {
 
     USER("ROLE_USER", "사용자"),
@@ -14,4 +13,12 @@ public enum RoleType {
     @Getter private final String roleName;
     @Getter private final String description;
 
+    RoleType(String roleName, String description) {
+        this.roleName = roleName;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

@@ -1,7 +1,7 @@
 package com.fastcampus.projectboard.user.controller;
 
 import com.fastcampus.projectboard.user.config.TestSecurityConfig;
-import com.project.board.service.ArticleService;
+import com.project.board.service.users.ArticleService;
 import com.fastcampus.projectboard.service.PaginationService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

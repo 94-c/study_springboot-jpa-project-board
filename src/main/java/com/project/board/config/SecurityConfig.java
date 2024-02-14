@@ -6,7 +6,7 @@ import com.project.board.dto.UserAccountDto;
 import com.project.board.dto.security.BoardPrincipal;
 import com.project.board.dto.security.KakaoOAuth2Response;
 import com.project.board.repository.UserAccountRepository;
-import com.project.board.service.UserAccountService;
+import com.project.board.service.users.UserAccountService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,26 +35,21 @@ public class SecurityConfig {
             HttpSecurity http,
             OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService
     ) throws Exception {
+        String[] rolesAboveManager = {RoleType.MANAGER.name(), RoleType.DEVELOPER.name(), RoleType.ADMIN.name()};
+
         return http
-                .authorizeRequests(auth -> auth
+                .authorizeRequests(authorize -> authorize
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .mvcMatchers(
-                                HttpMethod.GET,
-                                "/",
-                                "/articles",
-                                "/articles/search-hashtag"
-                        ).permitAll()
-                        .mvcMatchers(
-                                "/admin/**"
-                        ).hasRole("ADMIN")
+                        .mvcMatchers(HttpMethod.GET, "/", "/articles", "/articles/search-hashtag").permitAll()
+                        .mvcMatchers(HttpMethod.POST, "/management/**").hasAnyRole(rolesAboveManager)
+                        .mvcMatchers(HttpMethod.DELETE, "/management/**").hasAnyRole(rolesAboveManager)
+                        .mvcMatchers(HttpMethod.GET, "/management/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults())
-                /*.formLogin((formLogin) -> formLogin
-                        .loginPage("/users/login-form")
-                        .defaultSuccessUrl("/"))*/
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/"))
+                        .logoutSuccessUrl("/")
+                )
                 .oauth2Login(oAuth -> oAuth
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(oAuth2UserService)
@@ -62,6 +57,7 @@ public class SecurityConfig {
                 )
                 .build();
     }
+
 
     @Bean
     public UserDetailsService userDetailsService(UserAccountRepository userAccountRepository) {

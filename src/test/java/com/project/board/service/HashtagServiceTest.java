@@ -2,7 +2,7 @@ package com.fastcampus.projectboard.user.service;
 
 import com.project.board.domain.Hashtag;
 import com.project.board.repository.HashtagRepository;
-import com.project.board.service.HashtagService;
+import com.project.board.service.users.HashtagService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

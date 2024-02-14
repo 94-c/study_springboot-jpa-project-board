@@ -10,15 +10,15 @@ logging:
     com.fastcampus.projectboard: debug
     org.springframework.web.servlet: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.springframework.web.client.RestTemplate: debug
 
 spring:
+  devtools.livereload.port: 35730
   datasource:
-    #url: jdbc:mysql://43.201.51.9:3306/board
     url: jdbc:postgresql://43.201.51.9:5432/board
     username: boom
     password: boom
     driver-class-name: org.postgresql.Driver
-  #driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     open-in-view: false
     defer-datasource-initialization: true
@@ -49,3 +49,5 @@ spring:
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
+
+project.board.url: http://localhost:8080

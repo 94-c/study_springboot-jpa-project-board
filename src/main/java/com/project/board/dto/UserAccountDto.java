@@ -10,7 +10,7 @@ public record UserAccountDto(
         Long id,
         String userId,
         String userPassword,
-        Set<Role> roleTypes, // 수정된 부분
+        Set<Role> roleTypes,
         String email,
         String nickname,
         String memo,
@@ -32,7 +32,7 @@ public record UserAccountDto(
                 entity.getId(),
                 entity.getUserId(),
                 entity.getUserPassword(),
-                new HashSet<>(entity.getRoleTypes()), // 수정된 부분
+                new HashSet<>(entity.getRoleTypes()),
                 entity.getEmail(),
                 entity.getNickname(),
                 entity.getMemo(),
